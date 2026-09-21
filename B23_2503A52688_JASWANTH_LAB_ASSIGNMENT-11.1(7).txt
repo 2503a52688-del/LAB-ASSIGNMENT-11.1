@@ -1,0 +1,112 @@
+     LAB ASSIGNMNET-11.1
+ 
+       PROBLEM-7
+     
+
+Task Description #7 Real-Time Application Challenge – Choose the
+Right Data Structure
+Scenario:
+Your college wants to develop a Campus Resource Management System
+that handles:
+1. Student Attendance Tracking – Daily log of students
+entering/exiting the campus.
+2. Event Registration System – Manage participants in events with
+quick search and removal.
+3. Library Book Borrowing – Keep track of available books and their
+due dates.
+
+4. Bus Scheduling System – Maintain bus routes and stop
+connections.
+5. Cafeteria Order Queue – Serve students in the order they arrive.
+Student Task:
+ For each feature, select the most appropriate data structure from
+the list below:
+o Stack
+o Queue
+o Priority Queue
+o Linked List
+o Binary Search Tree (BST)
+o Graph
+o Hash Table
+o Deque
+ Justify your choice in 2–3 sentences per feature.
+ Implement one selected feature as a working Python program with
+AI-assisted code generation.
+Expected Output:
+ A table mapping feature → chosen data structure → justification.
+ A functional Python program implementing the chosen feature
+with comments and docstrings.
+
+PROMPT:
+
+
+Solve this Campus Resource Management System scenario.
+
+Choose the most appropriate data structure from Stack, Queue, Priority Queue, Linked List, BST, Graph, Hash Table, and Deque for each:
+1. Student Attendance Tracking
+2. Event Registration System
+3. Library Book Borrowing
+4. Bus Scheduling System
+5. Cafeteria Order Queue
+
+Give a table with Feature, Data Structure, and a 2–3 sentence justification.
+
+Then implement the Cafeteria Order Queue in simple Python using a Queue. Add comments and a small example with output. Keep everything beginner-friendly.
+
+
+CODE:
+
+"""Campus Resource Management System
+
+Data structure choices:
+
+| Feature | Data Structure | Justification |
+|---|---|---|
+| Student Attendance | Hash Table | Quick ID lookup. |
+| Event Registration | Queue | First-come, first-served. |
+| Library Borrowing | Linked List | Flexible book list. |
+| Bus Scheduling | Priority Queue | Serves urgent buses first. |
+| Cafeteria Orders | Queue | First-in, first-out service. |
+"""
+
+from collections import deque
+
+
+class CafeteriaOrderQueue:
+    """A simple first-in, first-out queue for cafeteria orders."""
+
+    def __init__(self):
+        self.orders = deque()
+
+    def add_order(self, order):
+        """Add an order to the back of the queue."""
+        self.orders.append(order)
+
+    def serve_order(self):
+        """Remove and return the oldest order, or None if empty."""
+        if self.orders:
+            return self.orders.popleft()
+        return None
+
+    def is_empty(self):
+        return len(self.orders) == 0
+
+
+# Small example
+if __name__ == "__main__":
+    cafeteria = CafeteriaOrderQueue()
+    cafeteria.add_order("Order 1: Sandwich")
+    cafeteria.add_order("Order 2: Salad")
+    cafeteria.add_order("Order 3: Juice")
+
+    print("Serving cafeteria orders:")
+    while not cafeteria.is_empty():
+        print(cafeteria.serve_order())
+
+
+OUTPUT:
+
+Serving cafeteria orders:
+Order 1: Sandwich
+Order 2: Salad
+Order 3: Juice
