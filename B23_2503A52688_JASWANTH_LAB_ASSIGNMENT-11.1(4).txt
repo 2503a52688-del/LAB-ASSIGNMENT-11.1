@@ -1,0 +1,74 @@
+      LAB ASSIGNMENT-11.1 
+      
+       PROBLEM-4
+
+Task Description #4 – Binary Search Tree (BST)
+Task: Use AI to create a BST with insert and in-order traversal methods.
+Sample Input Code:
+class BST:
+pass
+Expected Output:
+ BST implementation with recursive insert and traversal methods.
+
+PROMPT:
+
+Complete the BST class in Python. Add recursive insert() and inorder() traversal methods. Keep the code short, simple, and beginner-friendly. Add simple docstrings.
+
+
+CODE:
+
+class Node:
+    """A node in a binary search tree."""
+
+    def __init__(self, value):
+        self.value = value
+        self.left = None
+        self.right = None
+
+
+class BST:
+    """A simple binary search tree."""
+
+    def __init__(self):
+        self.root = None
+
+    def insert(self, value):
+        """Insert a value into the tree recursively."""
+
+        def add(node):
+            if node is None:
+                return Node(value)
+            if value < node.value:
+                node.left = add(node.left)
+            elif value > node.value:
+                node.right = add(node.right)
+            return node
+
+        self.root = add(self.root)
+
+    def inorder(self):
+        """Return the values in sorted, inorder order."""
+        values = []
+
+        def visit(node):
+            if node is not None:
+                visit(node.left)
+                values.append(node.value)
+                visit(node.right)
+
+        visit(self.root)
+        return values
+
+
+if __name__ == "__main__":
+    tree = BST()
+    for value in (50, 30, 70, 20, 40, 60, 80):
+        tree.insert(value)
+
+    print("Inorder traversal:", tree.inorder())
+
+
+OUTPUT:
+
+Inorder traversal: [20, 30, 40, 50, 60, 70, 80]
+
