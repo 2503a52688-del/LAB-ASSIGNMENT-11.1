@@ -1,0 +1,266 @@
+           LAB ASSIGNMNET-11.1
+
+           PROBLEM-8
+ 
+Task Description #8: Smart E-Commerce Platform – Data Structure
+Challenge
+An e-commerce company wants to build a Smart Online Shopping System
+with:
+1. Shopping Cart Management – Add and remove products
+dynamically.
+2. Order Processing System – Orders processed in the order they are
+placed.
+3. Top-Selling Products Tracker – Products ranked by sales count.
+
+4. Product Search Engine – Fast lookup of products using product ID.
+5. Delivery Route Planning – Connect warehouses and delivery
+locations.
+Student Task:
+ For each feature, select the most appropriate data structure from
+the list below:
+o Stack
+o Queue
+o Priority Queue
+o Linked List
+o Binary Search Tree (BST)
+o Deque
+ Justify your choice in 2–3 sentences per feature.
+ Implement one selected feature as a working Python program with
+AI-assisted code generation.
+Expected Output:
+ A table mapping feature → chosen data structure → justification.
+ A functional Python program implementing the chosen feature
+with comments and docstrings.
+
+
+PROMPT:
+
+Solve this Smart E-Commerce Platform data structure challenge.
+
+Choose the most appropriate data structure from Stack, Queue, Priority Queue, Linked List, BST, and Deque for:
+1. Shopping Cart Management
+2. Order Processing System
+3. Top-Selling Products Tracker
+4. Product Search Engine
+5. Delivery Route Planning
+
+Give a table with Feature, Data Structure, and a 2–3 sentence justification.
+
+Then implement the Order Processing System in simple Python using a Queue. Add comments, docstrings, and a small example with output. Keep the code short and beginner-friendly.
+
+CODE:
+
+"""Smart E-Commerce Platform data structures.
+
+Feature | Data Structure | Justification
+--- | --- | ---
+Shopping Cart Management | Stack | Supports undoing recent cart changes.
+Order Processing System | Queue | Processes orders first-in, first-out.
+Top-Selling Products | Priority Queue | Returns the top product.
+Product Search Engine | BST | Stores products in sorted order.
+Delivery Route Planning | Linked List | Keeps delivery stops in order.
+"""
+
+from collections import deque
+
+
+class ShoppingCart:
+    """Manage a shopping cart using a stack for recent-item undo behavior."""
+
+    def __init__(self):
+        self.items = []
+
+    def add_item(self, item):
+        """Add a product to the cart."""
+        self.items.append(item)
+
+    def remove_last_item(self):
+        """Remove and return the most recently added item, or None if empty."""
+        if not self.items:
+            return None
+        return self.items.pop()
+
+    def view_cart(self):
+        """Return a copy of current cart items."""
+        return list(self.items)
+
+
+class OrderQueue:
+    """Process customer orders in first-in, first-out order."""
+
+    def __init__(self):
+        self.orders = deque()
+
+    def add_order(self, order):
+        """Add an order to the back of the queue."""
+        self.orders.append(order)
+
+    def process_order(self):
+        """Remove and return the oldest order, or None if empty."""
+        return self.orders.popleft() if self.orders else None
+
+
+class ProductPriorityQueue:
+    """Return the highest-selling product using a max-priority queue."""
+
+    def __init__(self):
+        self.products = []
+
+    def enqueue(self, product, sales):
+        """Insert a product with its sales count."""
+        self.products.append((sales, product))
+        self.products.sort(reverse=True)
+
+    def get_top_product(self):
+        """Return the product with the highest sales count, or None if empty."""
+        if not self.products:
+            return None
+        _, product = self.products[0]
+        return product
+
+    def pop_top_product(self):
+        """Remove and return the highest-selling product."""
+        if not self.products:
+            return None
+        _, product = self.products.pop(0)
+        return product
+
+
+class ProductNode:
+    """A node in a BST for product search."""
+
+    def __init__(self, product_id, product_name):
+        self.product_id = product_id
+        self.product_name = product_name
+        self.left = None
+        self.right = None
+
+
+class ProductBST:
+    """Store products in sorted order by product ID."""
+
+    def __init__(self):
+        self.root = None
+
+    def insert(self, product_id, product_name):
+        """Insert a product into the BST."""
+        if self.root is None:
+            self.root = ProductNode(product_id, product_name)
+            return
+
+        current = self.root
+        while True:
+            if product_id < current.product_id:
+                if current.left is None:
+                    current.left = ProductNode(product_id, product_name)
+                    return
+                current = current.left
+            elif product_id > current.product_id:
+                if current.right is None:
+                    current.right = ProductNode(product_id, product_name)
+                    return
+                current = current.right
+            else:
+                current.product_name = product_name
+                return
+
+    def search(self, product_id):
+        """Search for a product by product ID."""
+        current = self.root
+        while current is not None:
+            if product_id == current.product_id:
+                return current.product_name
+            if product_id < current.product_id:
+                current = current.left
+            else:
+                current = current.right
+        return None
+
+    def inorder(self):
+        """Return products in sorted order."""
+        result = []
+
+        def walk(node):
+            if node is not None:
+                walk(node.left)
+                result.append((node.product_id, node.product_name))
+                walk(node.right)
+
+        walk(self.root)
+        return result
+
+
+class DeliveryStop:
+    """A stop in the delivery route."""
+
+    def __init__(self, location):
+        self.location = location
+        self.next = None
+
+
+class DeliveryRoute:
+    """Maintain delivery stops in order using a linked list."""
+
+    def __init__(self):
+        self.head = None
+
+    def add_stop(self, location):
+        """Add a delivery stop to the end of the route."""
+        new_stop = DeliveryStop(location)
+        if self.head is None:
+            self.head = new_stop
+            return
+
+        current = self.head
+        while current.next is not None:
+            current = current.next
+        current.next = new_stop
+
+    def show_route(self):
+        """Return the delivery stops in order."""
+        stops = []
+        current = self.head
+        while current is not None:
+            stops.append(current.location)
+            current = current.next
+        return stops
+
+
+# Small example usage
+if __name__ == "__main__":
+    cart = ShoppingCart()
+    cart.add_item("Laptop")
+    cart.add_item("Mouse")
+    print("Cart:", cart.view_cart())
+    print("Undo last item:", cart.remove_last_item())
+
+    queue = OrderQueue()
+    queue.add_order("Order 101")
+    queue.add_order("Order 102")
+    print("Processing:", queue.process_order())
+    print("Processing:", queue.process_order())
+
+    top_products = ProductPriorityQueue()
+    top_products.enqueue("Phone", 120)
+    top_products.enqueue("Laptop", 200)
+    top_products.enqueue("Headphones", 150)
+    print("Top-selling product:", top_products.get_top_product())
+
+    product_tree = ProductBST()
+    product_tree.insert(102, "Phone")
+    product_tree.insert(101, "Laptop")
+    product_tree.insert(103, "Keyboard")
+    print("Search product 101:", product_tree.search(101))
+    print("Inorder products:", product_tree.inorder())
+
+    route = DeliveryRoute()
+    route.add_stop("Warehouse")
+    route.add_stop("Downtown")
+    route.add_stop("Customer A")
+    print("Delivery route:", route.show_route())
+
+
+    OUTPUT:
+
+   Processing: Order 101
+   Processing: Order 102
