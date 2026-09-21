@@ -1,0 +1,65 @@
+
+      LAB ASSIGNMENT-11.1
+
+       PROBLEM-5
+
+Task Description #5 – Priority Queue
+Task: Use AI to implement a priority queue using Python’s heapq
+module.
+Sample Input Code:
+class PriorityQueue:
+pass
+Expected Output:
+ Implementation with enqueue (priority), dequeue (highest priority),
+and display methods.
+
+PROMPT:
+
+Complete the PriorityQueue class in Python using the heapq module. Add enqueue(item, priority), dequeue(), and display() methods. Make the highest priority item come out first. Keep the code short, simple, and beginner-friendly with simple docstrings.
+
+CODE:
+
+import heapq
+
+
+class PriorityQueue:
+    """A queue where the highest priority item comes out first."""
+
+    def __init__(self):
+        """Create an empty queue."""
+        self.queue = []
+        self.count = 0
+
+    def enqueue(self, item, priority):
+        """Add an item with a priority."""
+        heapq.heappush(self.queue, (-priority, self.count, item))
+        self.count += 1
+
+    def dequeue(self):
+        """Remove and return the highest priority item."""
+        if not self.queue:
+            return None
+        return heapq.heappop(self.queue)[2]
+
+    def display(self):
+        """Display the items in priority order."""
+        for priority, _, item in sorted(self.queue):
+            print(item, "(priority:", -priority, ")")
+
+
+if __name__ == "__main__":
+    priority_queue = PriorityQueue()
+    priority_queue.enqueue("Low priority", 1)
+    priority_queue.enqueue("High priority", 3)
+    priority_queue.enqueue("Medium priority", 2)
+
+    priority_queue.display()
+    print("Dequeued:", priority_queue.dequeue())
+
+ output:
+
+High priority (priority: 3 )
+Medium priority (priority: 2 )
+Low priority (priority: 1 )
+Dequeued: High priority
+[3:14 pm, 21/09/2026]
