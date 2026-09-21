@@ -1,0 +1,76 @@
+ LAB ASSIGNMENT-11.1
+
+ PROBLEM-3
+
+Task Description #3 – Linked List
+Task: Use AI to generate a Singly Linked List with insert and display
+methods.
+Sample Input Code:
+class Node:
+pass
+
+
+class LinkedList:
+pass
+Expected Output:
+ A working linked list implementation with clear method
+documentation.
+ 
+
+PROMPT:
+
+Complete the Node and LinkedList classes in Python. Create a singly linked list with insert() and display() methods. Add simple docstrings and keep the code short and beginner-friendly.
+
+CODE:
+
+class Node:
+    """A node that stores a value and the next node."""
+
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+
+class LinkedList:
+    """A simple singly linked list."""
+
+    def __init__(self):
+        self.head = None
+
+    def insert(self, data):
+        """Add a value to the end of the list."""
+        new_node = Node(data)
+        if self.head is None:
+            self.head = new_node
+            return
+
+        current = self.head
+        while current.next is not None:
+            current = current.next
+        current.next = new_node
+
+    def display(self):
+        """Print all values in the list."""
+        if self.head is None:
+            print("List is empty")
+            return
+
+        current = self.head
+        values = []
+        while current is not None:
+            values.append(str(current.data))
+            current = current.next
+        print(" -> ".join(values))
+
+
+if __name__ == "__main__":
+    linked_list = LinkedList()
+    linked_list.insert(10)
+    linked_list.insert(20)
+    linked_list.insert(30)
+    linked_list.display()
+
+
+OUTPUT:
+
+10 -> 20 -> 30
