@@ -1,0 +1,54 @@
+    LAB ASSIGNMENT-11.1
+     PROBLEM-2
+
+Task Description #2 – Queue Implementation
+Task: Use AI to implement a Queue using Python lists.
+Sample Input Code:
+class Queue:
+pass
+Expected Output:
+ FIFO-based queue class with enqueue, dequeue, peek, and size
+methods.
+
+Prompt:
+
+Complete the Queue class in Python using a list. Add enqueue(), dequeue(), peek(), and size() methods. Follow FIFO (First In, First Out). Keep the code short, simple, and beginner-friendly.
+
+CODE:
+
+class Queue:
+    def __init__(self):
+        self.items = []
+
+    def enqueue(self, item):
+        self.items.append(item)
+
+    def dequeue(self):
+        if self.items:
+            return self.items.pop(0)
+        return None
+
+    def peek(self):
+        if self.items:
+            return self.items[0]
+        return None
+
+    def size(self):
+        return len(self.items)
+
+
+if __name__ == "__main__":
+    queue = Queue()
+    queue.enqueue(10)
+    queue.enqueue(20)
+
+    print("Front element:", queue.peek())
+    print("Dequeued:", queue.dequeue())
+    print("Queue size:", queue.size())
+
+
+OUTPUT:
+
+Front element: 10
+Dequeued: 10
+Queue size: 1
